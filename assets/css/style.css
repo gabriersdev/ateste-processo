@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import url(./frameworks/bootstrap.css);
+@import url(./frameworks/bootstrap-icons.css);
+@import url(./frameworks/print.min.css);
+
+@import url(./normalize.css);
+@import url(./reset.css);
+@import url(./cores.css);
+@import url(./variaveis.css);
+
+@import url(./componentes/no-script.css);
+@import url(./componentes/loader.css);
+
+html{
+  scroll-behavior: smooth;
+}
+
+*{
+  font-family: 'Inter', sans-serif;
+}
+
+body{
+  font-family: 'Inter', sans-serif;
+}
+
+.none{
+  display: none;
+}
+
+.block{
+  display: block;
+}
