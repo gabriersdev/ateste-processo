@@ -454,6 +454,7 @@
   <script src="./assets/js/frameworks/simple-mask-money.js" defer crossorigin="anonymous"></script>
   <script src="./assets/js/frameworks/sweet-alert.js" defer crossorigin="anonymous"></script>
   <script src="./assets/js/frameworks/jquery-mask.js" defer crossorigin="anonymous"></script>
+  <script src="./assets/js/frameworks/moment.js" defer crossorigin="anonymous"></script>
   <script type="module" src="./assets/js/script.js" defer crossorigin="anonymous"></script>
   <script src="PDF2HTMLEx.js" defer crossorigin="anonymous"></script>
   <script src="Mozilla.js" defer crossorigin="anonymous"></script>
@@ -492,13 +493,13 @@
           
           <div class="form-group">
             <label for="nome-1">Nome</label>
-            <input type="text" size="30" id="nome-1" data-input="nome-1">
+            <input type="text" size="30" id="nome-1" data-input="nome-1" maxlength="50">
           </div>
           
           <div class="form-group">
             <div class="area-validation-CPF">
               <label for="CPF-1">CPF</label>
-              <input type="text" size="16" id="CPF-1" data-input="CPF-1" data-mascara="cpf">
+              <input type="text" size="16" id="CPF-1" data-input="CPF-1" data-mascara="cpf" placeholder="000.000.000-00" maxlength="14">
               <span class="icon-invalid-CPF" title="CPF inválido">&#10005;</span>
             </div>
           </div>
@@ -509,13 +510,13 @@
           
           <div class="form-group">
             <label for="nome-2">Nome</label>
-            <input type="text" size="30" id="nome-2" data-input="nome-2">
+            <input type="text" size="30" id="nome-2" data-input="nome-2" maxlength="50">
           </div>
           
           <div class="form-group">
             <div class="area-validation-CPF">
               <label for="CPF-2">CPF</label>
-              <input type="text" size="16" id="CPF-2" data-input="CPF-2" data-mascara="cpf">
+              <input type="text" size="16" id="CPF-2" data-input="CPF-2" data-mascara="cpf" placeholder="000.000.000-00" maxlength="14">
               <span class="icon-invalid-CPF" title="CPF inválido">&#10005;</span>
             </div>
           </div>
@@ -526,7 +527,7 @@
           
           <div class="form-group">
             <div class="form-group group-check">
-              <input type="radio" id="dossie-principal" name="dossie" data-input="dossie-principal">
+              <input type="radio" id="dossie-principal" name="dossie" data-input="dossie-principal" checked>
               <label for="dossie-principal">Dossiê principal</label>
             </div>
           </div><br>
@@ -550,9 +551,9 @@
           </div><br>
           
           <div class="form-group">
-            <input type="text" id="cc-agencia" data-input="cc-agencia" placeholder="Agência" size="4" data-mascara="agencia">
-            <input type="text" id="cc-operacao" data-input="cc-operacao" placeholder="Operação" size="5" data-mascara="operacao">
-            <input type="text" id="cc-numero" data-input="cc-numero" placeholder="Número" size="14" data-mascara="conta">
+            <input type="text" id="cc-agencia" data-input="cc-agencia" placeholder="Agência" size="4" data-mascara="agencia" maxlength="4">
+            <input type="text" id="cc-operacao" data-input="cc-operacao" placeholder="Operação" size="5" data-mascara="operacao" maxlength="4">
+            <input type="text" id="cc-numero" data-input="cc-numero" placeholder="Número" size="14" data-mascara="conta" maxlength="14">
           </div><br><br>
           
           <div class="form-group">
@@ -563,9 +564,9 @@
           </div><br>
           
           <div class="form-group">
-            <input type="text" id="cp-agencia" data-input="cp-agencia" placeholder="Agência" size="4" data-mascara="agencia">
-            <input type="text" id="cp-operacao" data-input="cp-operacao" placeholder="Operação" size="5" data-mascara="operacao">
-            <input type="text" id="cp-numero" data-input="cp-numero" placeholder="Número" size="14" data-mascara="conta">
+            <input type="text" id="cp-agencia" data-input="cp-agencia" placeholder="Agência" size="4" data-mascara="agencia" maxlength="4">
+            <input type="text" id="cp-operacao" data-input="cp-operacao" placeholder="Operação" size="5" data-mascara="operacao" maxlength="4">
+            <input type="text" id="cp-numero" data-input="cp-numero" placeholder="Número" size="14" data-mascara="conta" maxlength="14">
           </div><br><br>
           
           <div class="form-group">
@@ -623,17 +624,17 @@
           
           <div class="form-group">
             <label for="n-contrato">Nº do contrato</label>
-            <input type="text" id="n-contrato" data-input="n-contrato" size="15" data-mascara="numero-contrato">
+            <input type="text" id="n-contrato" data-input="n-contrato" size="18" data-mascara="numero-contrato" placeholder="0.0000.0000.000-0" maxlength="18">
           </div>
           
           <div class="form-group">
             <label for="construtora">Construtora</label>
-            <input type="text" id="construtora" data-input="construtora" size="20">
+            <input type="text" id="construtora" data-input="construtora" size="20" maxlength="24">
           </div>
           
           <div class="form-group">
             <label for="n-contrato">Empreendimento</label>
-            <input type="text" id="empreendimento" data-input="empreendimento" size=z"15">
+            <input type="text" id="empreendimento" data-input="empreendimento" size="15" maxlength="18">
           </div>
         </div>
         
@@ -642,7 +643,7 @@
           
           <div class="form-group">
             <div class="form-group group-check">
-              <input type="radio" id="formal" name="renda" data-input="formal">
+              <input type="radio" id="formal" name="renda" data-input="formal" checked>
               <label for="formal">Formal</label>
             </div>
           </div><br>
@@ -660,7 +661,7 @@
           
           <div class="form-group">
             <div class="form-group group-check">
-              <input type="radio" id="titular" name="endereco" data-input="titular">
+              <input type="radio" id="titular" name="endereco" data-input="titular" checked>
               <label for="titular">Titular</label>
             </div>
           </div><br>
@@ -676,12 +677,12 @@
         <div class="group">
           <div class="form-group">
             <label for="cidade">Cidade</label>
-            <input type="text" id="cidade" data-input="cidade" size="15">
+            <input type="text" id="cidade" data-input="cidade" size="15" value="Belo Horizonte">
           </div>
           
           <div class="form-group">
             <label for="data-assinatura">Data de assinatura</label>
-            <input type="date" id="" data-input="data-assinatura">
+            <input type="date" id="data-assinatura" data-input="data-assinatura">
           </div>
         </div>
         

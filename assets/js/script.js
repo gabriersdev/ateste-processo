@@ -1,12 +1,12 @@
 "use strict";
 
-import { SwalAlert, isEmpty, verificarCPF } from './modulos/utilitarios.js'
+import { SwalAlert, isEmpty, verificarCPF, zeroEsquerda } from './modulos/utilitarios.js'
 
 (() => {
   
   try{
     pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
-  }catch(e){}
+  }catch(error){}
   
   document.querySelectorAll('[data-recarrega-pagina]').forEach(botao => {
     botao.addEventListener('click', () => {
@@ -69,7 +69,7 @@ import { SwalAlert, isEmpty, verificarCPF } from './modulos/utilitarios.js'
       }
     })
   }
-
+  
   function atribuirMascaras(param, input){
     if(isEmpty(param) && isEmpty(input)){
       document.querySelectorAll('[data-mascara]').forEach(input => {
@@ -148,6 +148,11 @@ import { SwalAlert, isEmpty, verificarCPF } from './modulos/utilitarios.js'
     atribuirLinks();
     atribuirAcoes();
     atribuirMascaras();
+    
+    try{
+      const moment = new Date();
+      $('#data-assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
+    }catch(error){};
   });
   
   // document.querySelector('#modal-editar-informacoes').showModal();
