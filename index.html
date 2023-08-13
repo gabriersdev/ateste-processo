@@ -451,7 +451,9 @@
   </style>
   
   <script src="./assets/js/frameworks/jquery.js" defer crossorigin="anonymous"></script>
+  <script src="./assets/js/frameworks/simple-mask-money.js" defer crossorigin="anonymous"></script>
   <script src="./assets/js/frameworks/sweet-alert.js" defer crossorigin="anonymous"></script>
+  <script src="./assets/js/frameworks/jquery-mask.js" defer crossorigin="anonymous"></script>
   <script type="module" src="./assets/js/script.js" defer crossorigin="anonymous"></script>
   <script src="PDF2HTMLEx.js" defer crossorigin="anonymous"></script>
   <script src="Mozilla.js" defer crossorigin="anonymous"></script>
@@ -476,53 +478,59 @@
       </div>
     </div>
   </div>
-
+  
   <dialog id="modal-editar-informacoes" style="font-size: 12px !important; font-family: 'Inter', 'Arial', sans-serif !important;">
     <div class="modal-header">
       <h3>Editar informações</h3>
       <button data-action="fechar-modal">&#10006;</button>
     </div>
-
+    
     <div class="modal-body">
       <form action="POST" data-action="formulario-editar-informacoes">
         <div class="group">
           <h4>Proponente 1</h4>
-    
+          
           <div class="form-group">
             <label for="nome-1">Nome</label>
             <input type="text" size="30" id="nome-1" data-input="nome-1">
           </div>
-      
+          
           <div class="form-group">
-            <label for="CPF-1">CPF</label>
-            <input type="text" size="14" id="CPF-1" data-input="CPF-1">
+            <div class="area-validation-CPF">
+              <label for="CPF-1">CPF</label>
+              <input type="text" size="16" id="CPF-1" data-input="CPF-1" data-mascara="cpf">
+              <span class="icon-invalid-CPF" title="CPF inválido">&#10005;</span>
+            </div>
           </div>
         </div>
-  
+        
         <div class="group">
           <h4>Proponente 2</h4>
-    
+          
           <div class="form-group">
             <label for="nome-2">Nome</label>
             <input type="text" size="30" id="nome-2" data-input="nome-2">
           </div>
-      
+          
           <div class="form-group">
-            <label for="CPF-2">CPF</label>
-            <input type="text" size="14" id="CPF-2" data-input="CPF-2">
+            <div class="area-validation-CPF">
+              <label for="CPF-2">CPF</label>
+              <input type="text" size="16" id="CPF-2" data-input="CPF-2" data-mascara="cpf">
+              <span class="icon-invalid-CPF" title="CPF inválido">&#10005;</span>
+            </div>
           </div>
         </div>
-  
+        
         <div class="group">
           <h4>Informações do processo</h4>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="dossie-principal" name="dossie" data-input="dossie-principal">
               <label for="dossie-principal">Dossiê principal</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="dossie-complementar" name="dossie" data-input="dossie-complementar">
@@ -530,50 +538,50 @@
             </div>
           </div>
         </div>
-  
+        
         <div class="group">
           <h4>Propostas comerciais</h4>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="checkbox" id="conta-corrente" data-input="conta-corrente">
               <label for="conta-corrente">Conta corrente</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
-            <input type="text" id="cc-agencia" data-input="cc-agencia" placeholder="Agência" size="4">
-            <input type="text" id="cc-operacao" data-input="cc-operacao" placeholder="Operação" size="5">
-            <input type="text" id="cc-numero" data-input="cc-numero" placeholder="Número" size="14">
+            <input type="text" id="cc-agencia" data-input="cc-agencia" placeholder="Agência" size="4" data-mascara="agencia">
+            <input type="text" id="cc-operacao" data-input="cc-operacao" placeholder="Operação" size="5" data-mascara="operacao">
+            <input type="text" id="cc-numero" data-input="cc-numero" placeholder="Número" size="14" data-mascara="conta">
           </div><br><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="checkbox" id="conta-poupanca" data-input="conta-poupanca">
               <label for="conta-poupanca">Conta poupança</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
-            <input type="text" id="cp-agencia" data-input="cp-agencia" placeholder="Agência" size="4">
-            <input type="text" id="cp-operacao" data-input="cp-operacao" placeholder="Operação" size="5">
-            <input type="text" id="cp-numero" data-input="cp-numero" placeholder="Número" size="14">
+            <input type="text" id="cp-agencia" data-input="cp-agencia" placeholder="Agência" size="4" data-mascara="agencia">
+            <input type="text" id="cp-operacao" data-input="cp-operacao" placeholder="Operação" size="5" data-mascara="operacao">
+            <input type="text" id="cp-numero" data-input="cp-numero" placeholder="Número" size="14" data-mascara="conta">
           </div><br><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="checkbox" id="cheque" data-input="cheque">
               <label for="cheque">Cheque especial</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="checkbox" id="c-credito" data-input="c-credito">
               <label for="c-credito">Cartão de crédito</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="checkbox" id="consignado" data-input="consignado">
@@ -581,64 +589,64 @@
             </div>
           </div><br>
         </div>
-  
+        
         <div class="group">
           <h4>Propostas habitacionais</h4>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="CCNPMCMV" name="modalidade" data-input="CCNPMCMV">
               <label for="CCNPMCMV">PCVA</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="CCFGTS" name="modalidade" data-input="CCFGTS">
               <label for="CCFGTS">CCFGTS</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="CCSBPE" name="modalidade" data-input="CCSBPE">
               <label for="CCSBPE">CCSBPE</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="PROCOTISTA" name="modalidade" data-input="PROCOTISTA">
               <label for="PROCOTISTA">PRO-COTISTA</label>
             </div>
           </div><br><br>
-  
+          
           <div class="form-group">
             <label for="n-contrato">Nº do contrato</label>
-            <input type="text" id="n-contrato" data-input="n-contrato" size="15">
+            <input type="text" id="n-contrato" data-input="n-contrato" size="15" data-mascara="numero-contrato">
           </div>
-  
+          
           <div class="form-group">
             <label for="construtora">Construtora</label>
             <input type="text" id="construtora" data-input="construtora" size="20">
           </div>
-  
+          
           <div class="form-group">
             <label for="n-contrato">Empreendimento</label>
             <input type="text" id="empreendimento" data-input="empreendimento" size=z"15">
           </div>
         </div>
-  
+        
         <div class="group">
           <h4>Situação da renda</h4>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="formal" name="renda" data-input="formal">
               <label for="formal">Formal</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="outras-rendas" name="renda" data-input="outras-rendas">
@@ -646,17 +654,17 @@
             </div>
           </div><br>
         </div>
-  
+        
         <div class="group">
           <h4>Situação do comprovante de endereço</h4>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="titular" name="endereco" data-input="titular">
               <label for="titular">Titular</label>
             </div>
           </div><br>
-  
+          
           <div class="form-group">
             <div class="form-group group-check">
               <input type="radio" id="terceiros" name="endereco" data-input="terceiros">
@@ -664,19 +672,19 @@
             </div>
           </div><br>
         </div>
-  
+        
         <div class="group">
           <div class="form-group">
             <label for="cidade">Cidade</label>
             <input type="text" id="cidade" data-input="cidade" size="15">
           </div>
-  
+          
           <div class="form-group">
             <label for="data-assinatura">Data de assinatura</label>
             <input type="date" id="" data-input="data-assinatura">
           </div>
         </div>
-  
+        
         <button type="submit" class="block mt-1">Enviar</button>
       </form>
     </div>

@@ -56,6 +56,7 @@
   padding: 0.35rem;
   margin-top: 0.25rem;
   border-radius: 3px;
+  position: relative;
 }
 
 .form-group.group-check :where(input[type=checkbox], input[type=radio]){
@@ -80,4 +81,16 @@ button[type=submit]{
 button[type=submit]:is(:focus, :hover){
   background-color: rgba(0, 0, 0, 0.3);
   border-color: rgba(0, 0, 0, 0.2);
+}
+
+.area-validation-CPF{
+  position: relative;
+}
+
+.icon-invalid-CPF{
+  position: absolute;
+  right: 0.35rem;
+  transform: translate(0%, 75%);
+  cursor: help;
+  color: #FF0000;
 }

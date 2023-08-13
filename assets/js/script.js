@@ -1,6 +1,6 @@
 "use strict";
 
-import { SwalAlert } from './modulos/utilitarios.js'
+import { SwalAlert, isEmpty, verificarCPF } from './modulos/utilitarios.js'
 
 (() => {
   
@@ -69,11 +69,85 @@ import { SwalAlert } from './modulos/utilitarios.js'
       }
     })
   }
+
+  function atribuirMascaras(param, input){
+    if(isEmpty(param) && isEmpty(input)){
+      document.querySelectorAll('[data-mascara]').forEach(input => {
+        switch(input.dataset.mascara.trim().toLowerCase()){
+          case 'cpf':
+          $(input).mask('000.000.000-00');
+          $(input).on('input', (evento) => {
+            if(verificarCPF(evento.target.value)){
+              $(evento.target.closest('.area-validation-CPF').querySelector('.icon-invalid-CPF')).fadeOut(500);
+            }else{
+              $(evento.target.closest('.area-validation-CPF').querySelector('.icon-invalid-CPF')).fadeIn(500);
+            }
+          })
+          break;
+          
+          case 'numero-contrato':
+          $(input).mask('0.0000.0000000-0')
+          break;
+          
+          case 'data':
+          $(input).mask('00/00/0000');
+          break;
+          
+          case 'agencia':
+          $(input).mask('0000', {reverse: true});
+          break;
+          
+          case 'operacao':
+          $(input).mask('0000', {reverse: true});
+          break;
+          
+          case 'conta':
+          $(input).mask('000000000000-0', {reverse: true});
+          break;
+          
+          case 'conta-vendedor':
+          $(input).mask('000000000000-0', {reverse: true});
+          break;
+          
+          case 'money':
+          SimpleMaskMoney.setMask(input, {
+            prefix: 'R$ ',
+            fixed: true,
+            fractionDigits: 2,
+            decimalSeparator: ',',
+            thousandsSeparator: '.',
+            cursor: 'end'
+          });
+          input.removeAttribute('maxlength');
+          break;
+          
+          default:
+          throw new Error('Ação não implementada para o link informado.');
+          break;
+        }
+      })
+    }else{
+      switch(param.toLowerCase().trim()){
+        case 'agencia':
+        $(input).mask('0000', {reverse: true});
+        break;
+        
+        case 'operacao':
+        $(input).mask('0000', {reverse: true});
+        break;
+        
+        case 'conta':
+        $(input).mask('000000000000-0', {reverse: true});
+        break;
+      }
+    }
+  }
   
   window.addEventListener("load", function () {
     $('.overlay').hide();
     atribuirLinks();
     atribuirAcoes();
+    atribuirMascaras();
   });
   
   // document.querySelector('#modal-editar-informacoes').showModal();
