@@ -7,7 +7,7 @@ import { SwalAlert } from './modulos/utilitarios.js'
   try{
     pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
   }catch(e){}
-
+  
   document.querySelectorAll('[data-recarrega-pagina]').forEach(botao => {
     botao.addEventListener('click', () => {
       window.location.reload();
@@ -45,6 +45,21 @@ import { SwalAlert } from './modulos/utilitarios.js'
           event.preventDefault();
           // SwalAlert('alert', {icon: 'success', title:'Teste', comp:{text:'Isso é apenas um teste', timer:null}, confirmacao:null});
           document.querySelector('#modal-editar-informacoes').showModal();
+          document.querySelector('#modal-editar-informacoes').querySelectorAll('input')[0].focus();
+        })
+        break;
+        
+        case 'fechar-modal':
+        $(acao).on('click', (event) => {
+          event.preventDefault();
+          (acao.closest('dialog')).close();
+        })
+        break;
+        
+        case 'formulario-editar-informacoes':
+        $(acao).on('submit', (event) => {
+          event.preventDefault();
+          acao.closest('dialog').close();
         })
         break;
         
@@ -91,6 +106,4 @@ import { SwalAlert } from './modulos/utilitarios.js'
     event.preventDefault();
     window.print();
   })
-  
-  console.log($('[refer]'))
 })();
