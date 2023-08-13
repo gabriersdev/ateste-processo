@@ -90,7 +90,7 @@ button[type=submit]:is(:focus, :hover){
 .icon-invalid-CPF{
   position: absolute;
   right: 0.35rem;
-  transform: translate(0%, 75%);
+  transform: translate(0%, 62.5%);
   cursor: help;
   color: #FF0000;
 }

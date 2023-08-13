@@ -24,10 +24,11 @@ html{
 
 body{
   font-family: 'Arial', sans-serif !important;
+  /* zoom: 1.5; */
 }
 
 .swal2-popup {
-  font-size: 12px !important;
+  font-size: 16px !important;
   font-family: 'Arial', sans-serif;
 }
 
