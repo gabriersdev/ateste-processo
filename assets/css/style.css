@@ -12,6 +12,7 @@
 @import url(./componentes/kdb.css);
 
 @import url(./elementos/controle.css);
+@import url(./elementos/modal-editar-informacoes.css);
 
 html{
   scroll-behavior: smooth;
@@ -23,6 +24,11 @@ html{
 
 body{
   font-family: 'Arial', sans-serif !important;
+}
+
+.swal2-popup {
+  font-size: 12px !important;
+  font-family: 'Arial', sans-serif;
 }
 
 .none{
