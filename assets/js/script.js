@@ -1,6 +1,6 @@
 "use strict";
 
-import { SwalAlert, isEmpty, verificarCPF, zeroEsquerda } from './modulos/utilitarios.js'
+import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } from './modulos/utilitarios.js'
 
 (() => {
   
@@ -60,6 +60,51 @@ import { SwalAlert, isEmpty, verificarCPF, zeroEsquerda } from './modulos/utilit
         $(acao).on('submit', (event) => {
           event.preventDefault();
           acao.closest('dialog').close();
+
+          const inputs_tratamento = ['cc-agencia', 'cc-operacao', 'cc-numero', 'cc-digito', 'cp-agencia', 'cp-operacao', 'cp-numero', 'cp-digito'];
+
+          $('[data-input]').each((index, element) => {
+            // console.log(element.tagName, element.type, element.dataset.input)
+            if(element.tagName.toLowerCase() == 'input'){
+              const tipo = element.type;
+              const area = $(`sxs[refer=${element.dataset.input}]`);
+
+              if(!isEmpty(tipo) && !isEmpty(area)){
+                switch(tipo){
+                  case 'text':
+                  
+                  if(!isEmpty(element.value) && inputs_tratamento.includes(element.dataset.input)){
+                    // console.log('Aqui!')
+                  }
+                  break;
+
+                  case 'date':
+                    const data = element.value;
+                    try{
+                      if(data.length == 10){
+                        const split = data.split('-');
+                        $('sxs[refer="data-ano"]').text(split[0]);
+                        $('sxs[refer="data-dia"]').text(split[2]);
+  
+                        if(split[1][0] == '0'){
+                          $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1][1]) - 1)).toUpperCase());
+                        }else{
+                          $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1]) - 1)).toUpperCase());
+                        }
+                      }
+                    }catch(error){
+
+                    }
+                  break;
+
+                  case 'checkbox':
+                  case 'radio':
+                  element.checked ? area.text('X') : area.text('');
+                  break;
+                }
+              }
+            }
+          })
         })
         break;
         
