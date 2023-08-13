@@ -229,8 +229,8 @@ const converterParaMesBRL = (numero) => {
       return null;
     }
   }catch(error){
-    return null;
     console.warn('O valor informado não é um número');
+    return null;
   }
 }
 
