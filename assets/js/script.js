@@ -60,43 +60,65 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         $(acao).on('submit', (event) => {
           event.preventDefault();
           acao.closest('dialog').close();
-
+          
           const inputs_tratamento = ['cc-agencia', 'cc-operacao', 'cc-numero', 'cc-digito', 'cp-agencia', 'cp-operacao', 'cp-numero', 'cp-digito'];
-
+          
           $('[data-input]').each((index, element) => {
             // console.log(element.tagName, element.type, element.dataset.input)
             if(element.tagName.toLowerCase() == 'input'){
               const tipo = element.type;
               const area = $(`sxs[refer=${element.dataset.input}]`);
-
+              
               if(!isEmpty(tipo) && !isEmpty(area)){
                 switch(tipo){
                   case 'text':
                   
-                  if(!isEmpty(element.value) && inputs_tratamento.includes(element.dataset.input)){
-                    // console.log('Aqui!')
+                  !isEmpty(element.value) ? area.text(`${element.value.toUpperCase().trim()}`) : area.text('');
+                  
+                  if(isEmpty(element.value) && inputs_tratamento.includes(element.dataset.input)){
+                    switch(element.dataset.input){
+                      case 'cc-agencia':
+                      case 'cp-agencia':
+                        element.value.length <= 5 ? area.html(`&emsp;&emsp;&emsp;`) : '';
+                      break;
+                      
+                      case 'cc-operacao':
+                      case 'cp-operacao':
+                        element.value.length <= 4 ? area.html(`&emsp;&emsp;&emsp;`) : '';
+                      break;
+
+                      case 'cc-numero':
+                      case 'cp-numero':
+                        element.value.length <= 14 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
+                      break;
+                      
+                      case 'cc-digito':
+                      case 'cp-digito':
+                        element.value.length < 1 ? area.html(``) : '';
+                      break;
+                    }
                   }
                   break;
-
+                  
                   case 'date':
-                    const data = element.value;
-                    try{
-                      if(data.length == 10){
-                        const split = data.split('-');
-                        $('sxs[refer="data-ano"]').text(split[0]);
-                        $('sxs[refer="data-dia"]').text(split[2]);
-  
-                        if(split[1][0] == '0'){
-                          $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1][1]) - 1)).toUpperCase());
-                        }else{
-                          $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1]) - 1)).toUpperCase());
-                        }
+                  const data = element.value;
+                  try{
+                    if(data.length == 10){
+                      const split = data.split('-');
+                      $('sxs[refer="data-ano"]').text(split[0].trim());
+                      $('sxs[refer="data-dia"]').text(split[2].trim());
+                      
+                      if(split[1][0] == '0'){
+                        $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1][1]) - 1)).toUpperCase());
+                      }else{
+                        $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1]) - 1)).toUpperCase());
                       }
-                    }catch(error){
-
                     }
+                  }catch(error){
+                    
+                  }
                   break;
-
+                  
                   case 'checkbox':
                   case 'radio':
                   element.checked ? area.text('X') : area.text('');
