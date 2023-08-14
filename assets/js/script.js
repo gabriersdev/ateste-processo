@@ -75,26 +75,33 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                   
                   !isEmpty(element.value) ? area.text(`${element.value.toUpperCase().trim()}`) : area.text('');
                   
-                  if(isEmpty(element.value) && inputs_tratamento.includes(element.dataset.input)){
+                  // if(isEmpty(element.value) && inputs_tratamento.includes(element.dataset.input)){
+                  if(inputs_tratamento.includes(element.dataset.input)){
                     switch(element.dataset.input){
                       case 'cc-agencia':
                       case 'cp-agencia':
-                        element.value.length <= 5 ? area.html(`&emsp;&emsp;&emsp;`) : '';
+                      console.log(element.value.length)
+                      element.value.length <= 5 ? area.html(replicar(5, element.value, '&emsp;')) : '';
+                      element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;`) : '';
                       break;
                       
                       case 'cc-operacao':
                       case 'cp-operacao':
-                        element.value.length <= 4 ? area.html(`&emsp;&emsp;&emsp;`) : '';
+                      console.log(element.value.length)
+                      element.value.length <= 4 ? area.html(replicar(5, element.value, '&emsp;')) : '';
+                      element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;`) : '';
                       break;
-
+                      
                       case 'cc-numero':
                       case 'cp-numero':
-                        element.value.length <= 14 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
+                      console.log(element.value.length)
+                      element.value.length <= 14 ? area.html(replicar(12, element.value, '&emsp;')) : '';
+                      element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
                       break;
                       
                       case 'cc-digito':
                       case 'cp-digito':
-                        element.value.length < 1 ? area.html(``) : '';
+                      element.value.length < 1 ? area.html(``) : '';
                       break;
                     }
                   }
@@ -137,6 +144,19 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
     })
   }
   
+  const replicar = (quantidade, string, adicionar) => {
+    if(typeof string == 'string' && quantidade > string.length){
+      for(let i = string.length; i < quantidade; i++){
+        string += adicionar;
+      }
+      return string;
+    }else{
+      return null;
+    }
+  }
+
+  // console.log(replicar(5, '123', '&emsp;'));
+
   function atribuirMascaras(param, input){
     if(isEmpty(param) && isEmpty(input)){
       document.querySelectorAll('[data-mascara]').forEach(input => {
