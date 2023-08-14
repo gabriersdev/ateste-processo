@@ -227,12 +227,10 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
   var antes_de_imprimir = function() {
     // console.log('Antes de imprimir...');
     $('#controle').hide();
-    // $('body').css({zoom: 1});
   };
   
   var depois_de_imprimir = function() {
     // console.log('Depois de imprimir...');
-    // $('body').css({zoom: 1.5});
     $('#controle').show();
   };
   
