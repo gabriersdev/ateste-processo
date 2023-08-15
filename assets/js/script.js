@@ -80,21 +80,21 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                     switch(element.dataset.input){
                       case 'cc-agencia':
                       case 'cp-agencia':
-                      console.log(element.value.length)
+                      // console.log(element.value.length)
                       element.value.length <= 5 ? area.html(replicar(5, element.value, '&emsp;')) : '';
                       element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;`) : '';
                       break;
                       
                       case 'cc-operacao':
                       case 'cp-operacao':
-                      console.log(element.value.length)
+                      // console.log(element.value.length)
                       element.value.length <= 4 ? area.html(replicar(5, element.value, '&emsp;')) : '';
                       element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;`) : '';
                       break;
                       
                       case 'cc-numero':
                       case 'cp-numero':
-                      console.log(element.value.length)
+                      // console.log(element.value.length)
                       element.value.length <= 14 ? area.html(replicar(12, element.value, '&emsp;')) : '';
                       element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
                       break;

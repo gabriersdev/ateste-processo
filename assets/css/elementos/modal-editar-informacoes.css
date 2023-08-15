@@ -1,7 +1,8 @@
 #modal-editar-informacoes{
-  width: min(calc(100% - 2rem), 55%);
+  width: min(calc(100% - 0.5rem), 55%);
   border-radius: 2.5px;
   border: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 1rem;
 }
 
 #modal-editar-informacoes::backdrop{
