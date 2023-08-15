@@ -88,9 +88,9 @@ button[type=submit]:is(:focus, :hover){
 }
 
 .icon-invalid-CPF{
-  position: absolute;
+  /* position: absolute; */
   right: 0.35rem;
-  transform: translate(0%, 62.5%);
+  /* transform: translate(0%, 62.5%); */
   cursor: help;
   color: #FF0000;
 }

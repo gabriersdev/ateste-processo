@@ -137,6 +137,13 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         })
         break;
         
+        case 'toggle-dados-bancarios':
+        $(acao).on('input', (event) => {
+          // event.preventDefault();
+          $((acao.closest('[data-content="dados-conta"]')).querySelector('[data-content="dados-bancarios"]')).toggle(300);
+        })
+        break;
+
         default:
         console.warn('A ação não foi implementada.')
         break;

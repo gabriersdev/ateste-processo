@@ -31,6 +31,10 @@ body{
   font-family: 'Arial', sans-serif;
 }
 
+input{
+  text-transform: uppercase;
+}
+
 .none{
   display: none;
 }

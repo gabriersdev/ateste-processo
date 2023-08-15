@@ -544,32 +544,40 @@
         <div class="group">
           <h4>Propostas comerciais</h4>
           
-          <div class="form-group">
-            <div class="form-group group-check">
-              <input type="checkbox" id="conta-corrente" data-input="conta-corrente">
-              <label for="conta-corrente">Conta corrente</label>
+          <div data-content="dados-conta">
+            <div class="form-group">
+              <div class="form-group group-check">
+                <input type="checkbox" id="conta-corrente" data-input="conta-corrente" data-action="toggle-dados-bancarios">
+                <label for="conta-corrente">Conta corrente</label>
+              </div>
+            </div><br>
+            
+            <div data-content="dados-bancarios" class="none">
+              <div class="form-group">
+                <input type="text" id="cc-agencia" data-input="cc-agencia" placeholder="Agência" size="4" data-mascara="agencia" maxlength="4" valuex="1234">
+                <input type="text" id="cc-operacao" data-input="cc-operacao" placeholder="Operação" size="5" data-mascara="operacao" maxlength="4" valuex="4567">
+                <input type="text" id="cc-numero" data-input="cc-numero" placeholder="Número" size="14" data-mascara="conta" maxlength="14"
+                valuex="123456">
+              </div><br><br>
             </div>
-          </div><br>
+          </div>
           
-          <div class="form-group">
-            <input type="text" id="cc-agencia" data-input="cc-agencia" placeholder="Agência" size="4" data-mascara="agencia" maxlength="4" value="1234">
-            <input type="text" id="cc-operacao" data-input="cc-operacao" placeholder="Operação" size="5" data-mascara="operacao" maxlength="4" value="4567">
-            <input type="text" id="cc-numero" data-input="cc-numero" placeholder="Número" size="14" data-mascara="conta" maxlength="14"
-            value="123456">
-          </div><br><br>
-          
-          <div class="form-group">
-            <div class="form-group group-check">
-              <input type="checkbox" id="conta-poupanca" data-input="conta-poupanca">
-              <label for="conta-poupanca">Conta poupança</label>
+          <div data-content="dados-conta">
+            <div class="form-group">
+              <div class="form-group group-check">
+                <input type="checkbox" id="conta-poupanca" data-input="conta-poupanca" data-action="toggle-dados-bancarios">
+                <label for="conta-poupanca">Conta poupança</label>
+              </div>
+            </div><br>
+            
+            <div data-content="dados-bancarios" class="none">
+              <div class="form-group">
+                <input type="text" id="cp-agencia" data-input="cp-agencia" placeholder="Agência" size="4" data-mascara="agencia" maxlength="4">
+                <input type="text" id="cp-operacao" data-input="cp-operacao" placeholder="Operação" size="5" data-mascara="operacao" maxlength="4">
+                <input type="text" id="cp-numero" data-input="cp-numero" placeholder="Número" size="14" data-mascara="conta" maxlength="14">
+              </div><br><br>
             </div>
-          </div><br>
-          
-          <div class="form-group">
-            <input type="text" id="cp-agencia" data-input="cp-agencia" placeholder="Agência" size="4" data-mascara="agencia" maxlength="4">
-            <input type="text" id="cp-operacao" data-input="cp-operacao" placeholder="Operação" size="5" data-mascara="operacao" maxlength="4">
-            <input type="text" id="cp-numero" data-input="cp-numero" placeholder="Número" size="14" data-mascara="conta" maxlength="14">
-          </div><br><br>
+          </div>
           
           <div class="form-group">
             <div class="form-group group-check">
