@@ -59,10 +59,21 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         case 'formulario-editar-informacoes':
         $(acao).on('submit', (event) => {
           event.preventDefault();
-          acao.closest('dialog').close();
           
           const inputs_tratamento = ['cc-agencia', 'cc-operacao', 'cc-numero', 'cc-digito', 'cp-agencia', 'cp-operacao', 'cp-numero', 'cp-digito'];
           
+          if(!$('[data-input="conta-corrente"]').is(':checked')){
+            // $('[data-input="cc-agencia"]').val('');
+            // $('[data-input="cc-operacao"]').val('');
+            // $('[data-input="cc-numero"]').val('');
+          }
+          
+          if(!$('[data-input="conta-poupanca"]').is(':checked')){
+            // $('[data-input="cp-agencia"]').val('');
+            // $('[data-input="cp-operacao"]').val('');
+            // $('[data-input="cp-numero"]').val('');
+          }
+
           $('[data-input]').each((index, element) => {
             // console.log(element.tagName, element.type, element.dataset.input)
             if(element.tagName.toLowerCase() == 'input'){
@@ -134,6 +145,8 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
               }
             }
           })
+
+          acao.closest('dialog').close();
         })
         break;
         
@@ -161,8 +174,6 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       return null;
     }
   }
-
-  // console.log(replicar(5, '123', '&emsp;'));
 
   function atribuirMascaras(param, input){
     if(isEmpty(param) && isEmpty(input)){
@@ -271,6 +282,41 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         $(input.closest('.form-group')).removeClass('focus')
       })
     })
+
+    try{
+      const url = new URLSearchParams(new URL(window.location).search);
+      const parametros_insercao = new Array();
+
+      document.querySelectorAll('sxs[refer]').forEach(sxs => {
+        parametros_insercao.push(sxs.getAttribute('refer'));
+      });
+      console.log(parametros_insercao);
+
+      // parametros_insercao.forEach(parametro => {
+      //   if(url.has(parametro) && !isEmpty(url.get(parametro))){
+      //     const elemento = document.querySelector(`[data-input=${parametro}]`);
+      //     const tag = elemento.tagName.toLowerCase();
+      //     const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato'];
+
+      //     switch(tag){
+      //       case 'input':
+      //         elemento.value = url.get(parametro);
+
+      //         // if()
+
+      //       break;
+
+      //       case 'checkbox':
+      //       case 'radio':
+      //         elemento.checked = url.get(parametro);
+      //     }
+      //   }
+      // })
+
+    }catch(error){
+      console.log('Ocorreu um erro ao tentar recuperar os dados da URL. Erro: %s', error);
+    }
+    
   });
   
   // document.querySelector('#modal-editar-informacoes').showModal();
