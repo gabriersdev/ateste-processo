@@ -101,6 +101,10 @@ textarea::placeholder{
   background-color: rgba(0, 0, 0, 0.15);
 }
 
+[data-content="dados-bancarios"]{
+  margin-left: 1.05rem;
+}
+
 :where(input[type=radio], input[type=checkbox]){
   outline: 1px solid rebeccapurple;
 }
