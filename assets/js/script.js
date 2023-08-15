@@ -247,6 +247,30 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       const moment = new Date();
       $('#data-assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
     }catch(error){};
+
+    $('input').each((index, input) => {
+      input.setAttribute('autocomplete', 'off');
+    })
+
+    $('input[type=checkbox]').each((index, input) => {
+      $(input).on('focus', (evento) => {
+        $(input.closest('.form-group')).addClass('focus')
+      })
+      
+      $(input).on('blur', (evento) => {
+        $(input.closest('.form-group')).removeClass('focus')
+      })
+    })
+
+    $('input[type=radio]').each((index, input) => {
+      $(input).on('focus', (evento) => {
+        $(input.closest('.form-group')).addClass('focus')
+      })
+      
+      $(input).on('blur', (evento) => {
+        $(input.closest('.form-group')).removeClass('focus')
+      })
+    })
   });
   
   // document.querySelector('#modal-editar-informacoes').showModal();
