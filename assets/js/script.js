@@ -59,101 +59,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         case 'formulario-editar-informacoes':
         $(acao).on('submit', (event) => {
           event.preventDefault();
-          
-          const inputs_tratamento = ['cc-agencia', 'cc-operacao', 'cc-numero', 'cc-digito', 'cp-agencia', 'cp-operacao', 'cp-numero', 'cp-digito'];
-          
-          if(!$('[data-input="conta-corrente"]').is(':checked')){
-            // $('[data-input="cc-agencia"]').val('');
-            // $('[data-input="cc-operacao"]').val('');
-            // $('[data-input="cc-numero"]').val('');
-          }
-          
-          if(!$('[data-input="conta-poupanca"]').is(':checked')){
-            // $('[data-input="cp-agencia"]').val('');
-            // $('[data-input="cp-operacao"]').val('');
-            // $('[data-input="cp-numero"]').val('');
-          }
-          
-          $('[data-input]').each((index, element) => {
-            // console.log(element.tagName, element.type, element.dataset.input)
-            if(element.tagName.toLowerCase() == 'input'){
-              const tipo = element.type;
-              const area = $(`sxs[refer=${element.dataset.input}]`);
-              
-              if(!isEmpty(tipo) && !isEmpty(area)){
-                switch(tipo){
-                  case 'text':
-                  
-                  !isEmpty(element.value) ? area.text(`${element.value.toUpperCase().trim()}`) : area.text('');
-                  
-                  // if(isEmpty(element.value) && inputs_tratamento.includes(element.dataset.input)){
-                  if(inputs_tratamento.includes(element.dataset.input)){
-                    switch(element.dataset.input){
-                      case 'cc-agencia':
-                      case 'cp-agencia':
-                      // console.log(element.value.length)
-                      element.value.length <= 5 ? area.html(replicar(5, element.value, '&emsp;')) : '';
-                      element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;`) : '';
-                      break;
-                      
-                      case 'cc-operacao':
-                      case 'cp-operacao':
-                      // console.log(element.value.length)
-                      element.value.length <= 4 ? area.html(replicar(5, element.value, '&emsp;')) : '';
-                      element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;`) : '';
-                      break;
-                      
-                      case 'cc-numero':
-                      case 'cp-numero':
-                      // console.log(element.value.length)
-                      console.log(element.value.split('-'))
-                      element.value.length <= 14 ? area.html(replicar(14, element.value.split('-')[0], '&emsp;')) : '';
-                      element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
-
-                      if(element.dataset.input == 'cc-numero'){
-                        $('sxs[refer="cc-digito"]').text(element.value.split('-')[1]);
-                      }else if(element.dataset.input == 'cp-numero'){
-                        $('sxs[refer="cp-digito"]').text(element.value.split('-')[1]);
-                      }
-
-                      break;
-                      
-                      case 'cc-digito':
-                      case 'cp-digito':
-                      element.value.length < 1 ? area.html(``) : '';
-                      break;
-                    }
-                  }
-                  break;
-                  
-                  case 'date':
-                  const data = element.value;
-                  try{
-                    if(data.length == 10){
-                      const split = data.split('-');
-                      $('sxs[refer="data-ano"]').text(split[0].trim());
-                      $('sxs[refer="data-dia"]').text(split[2].trim());
-                      
-                      if(split[1][0] == '0'){
-                        $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1][1]) - 1)).toUpperCase());
-                      }else{
-                        $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1]) - 1)).toUpperCase());
-                      }
-                    }
-                  }catch(error){
-                    
-                  }
-                  break;
-                  
-                  case 'checkbox':
-                  case 'radio':
-                  element.checked ? area.text('X') : area.text('');
-                  break;
-                }
-              }
-            }
-          })
-          
+          enviarFormulario();
           acao.closest('dialog').close();
         })
         break;
@@ -256,6 +162,102 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
     }
   }
   
+  function enviarFormulario(){
+    const inputs_tratamento = ['cc_agencia', 'cc_operacao', 'cc_numero', 'cc_digito', 'cp_agencia', 'cp_operacao', 'cp_numero', 'cp_digito'];
+    
+    if(!$('[data-input="conta-corrente"]').is(':checked')){
+      // $('[data-input="cc-agencia"]').val('');
+      // $('[data-input="cc-operacao"]').val('');
+      // $('[data-input="cc-numero"]').val('');
+    }
+    
+    if(!$('[data-input="conta-poupanca"]').is(':checked')){
+      // $('[data-input="cp-agencia"]').val('');
+      // $('[data-input="cp-operacao"]').val('');
+      // $('[data-input="cp-numero"]').val('');
+    }
+    
+    $('[data-input]').each((index, element) => {
+      // console.log(element.dataset.input, inputs_tratamento.includes(element.dataset.input))
+      // console.log(element.tagName, element.type, element.dataset.input)
+      if(element.tagName.toLowerCase() == 'input'){
+        const tipo = element.type;
+        const area = $(`sxs[refer=${element.dataset.input}]`);
+        
+        if(!isEmpty(tipo) && !isEmpty(area)){
+          switch(tipo){
+            case 'text':
+            
+            !isEmpty(element.value) ? area.text(`${element.value.toUpperCase().trim()}`) : area.text('');
+
+            // if(isEmpty(element.value) && inputs_tratamento.includes(element.dataset.input)){
+            if(inputs_tratamento.includes(element.dataset.input)){
+              switch(element.dataset.input){
+                case 'cc_agencia':
+                case 'cp_agencia':
+                // console.log(element.value.length)
+                element.value.length <= 5 ? area.html(replicar(5, element.value, '&emsp;')) : '';
+                element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;`) : '';
+                break;
+                
+                case 'cc_operacao':
+                case 'cp_operacao':
+                // console.log(element.value.length)
+                element.value.length <= 4 ? area.html(replicar(5, element.value, '&emsp;')) : '';
+                element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;`) : '';
+                break;
+                
+                case 'cc_numero':
+                case 'cp_numero':
+                // console.log(element.value.length)
+                // console.log(element.value.split('-'))
+                element.value.length <= 14 ? area.html(replicar(14, element.value.split('-')[0], '&emsp;')) : '';
+                element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
+                
+                if(element.dataset.input == 'cc-numero'){
+                  $('sxs[refer="cc-digito"]').text(element.value.split('-')[1]);
+                }else if(element.dataset.input == 'cp-numero'){
+                  $('sxs[refer="cp-digito"]').text(element.value.split('-')[1]);
+                }
+                break;
+                
+                case 'cc_digito':
+                case 'cp_digito':
+                element.value.length < 1 ? area.html(``) : '';
+                break;
+              }
+            }
+            break;
+            
+            case 'date':
+            const data = element.value;
+            try{
+              if(data.length == 10){
+                const split = data.split('-');
+                $('sxs[refer="data-ano"]').text(split[0].trim());
+                $('sxs[refer="data-dia"]').text(split[2].trim());
+                
+                if(split[1][0] == '0'){
+                  $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1][1]) - 1)).toUpperCase());
+                }else{
+                  $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1]) - 1)).toUpperCase());
+                }
+              }
+            }catch(error){
+              
+            }
+            break;
+            
+            case 'checkbox':
+            case 'radio':
+            element.checked ? area.text('X') : area.text('');
+            break;
+          }
+        }
+      }
+    })
+  }
+  
   window.addEventListener("load", function () {
     $('.overlay').hide();
     atribuirLinks();
@@ -294,32 +296,36 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
     try{
       const url = new URLSearchParams(new URL(window.location).search);
       const parametros_insercao = new Array();
-      
+
       document.querySelectorAll('sxs[refer]').forEach(sxs => {
         parametros_insercao.push(sxs.getAttribute('refer'));
       });
-      console.log(parametros_insercao);
-      
-      parametros_insercao.forEach(parametro => {
-        if(url.has(parametro) && !isEmpty(url.get(parametro))){
-          const elemento = document.querySelector(`[data-input=${parametro}]`);
-          const tag = elemento.tagName.toLowerCase();
-          const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato'];
-          
-          switch(tag){
-            case 'input':
-            elemento.value = url.get(parametro);
+
+      if(!isEmpty(parametros_insercao)){
+        parametros_insercao.forEach(parametro => {
+          if(url.has(parametro) && !isEmpty(url.get(parametro))){
+            const elemento = document.querySelector(`[data-input=${parametro}]`);
+            const tag = elemento.tagName.toLowerCase();
+            const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato'];
             
-            // if()
-            
-            break;
-            
-            case 'checkbox':
-            case 'radio':
-            elemento.checked = url.get(parametro);
+            switch(tag){
+              case 'input':
+              elemento.value = url.get(parametro);
+              
+              // if()
+              
+              break;
+              
+              case 'checkbox':
+              case 'radio':
+              if(url.get(parametro) == 'true' || url.get(parametro) == true || url.get(parametro) == 'false' || url.get(parametro) == false && !isEmpty(url.get(parametro))){
+                elemento.checked = eval(url.get(url.get(parametro)));
+              }
+            }
           }
-        }
-      })
+        })
+        enviarFormulario();
+      }
       
     }catch(error){
       console.log('Ocorreu um erro ao tentar recuperar os dados da URL. Erro: %s', error);
