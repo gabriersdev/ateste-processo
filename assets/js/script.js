@@ -73,7 +73,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
             // $('[data-input="cp-operacao"]').val('');
             // $('[data-input="cp-numero"]').val('');
           }
-
+          
           $('[data-input]').each((index, element) => {
             // console.log(element.tagName, element.type, element.dataset.input)
             if(element.tagName.toLowerCase() == 'input'){
@@ -106,8 +106,16 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                       case 'cc-numero':
                       case 'cp-numero':
                       // console.log(element.value.length)
-                      element.value.length <= 14 ? area.html(replicar(12, element.value, '&emsp;')) : '';
+                      console.log(element.value.split('-'))
+                      element.value.length <= 14 ? area.html(replicar(14, element.value.split('-')[0], '&emsp;')) : '';
                       element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
+
+                      if(element.dataset.input == 'cc-numero'){
+                        $('sxs[refer="cc-digito"]').text(element.value.split('-')[1]);
+                      }else if(element.dataset.input == 'cp-numero'){
+                        $('sxs[refer="cp-digito"]').text(element.value.split('-')[1]);
+                      }
+
                       break;
                       
                       case 'cc-digito':
@@ -145,7 +153,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
               }
             }
           })
-
+          
           acao.closest('dialog').close();
         })
         break;
@@ -156,7 +164,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
           $((acao.closest('[data-content="dados-conta"]')).querySelector('[data-content="dados-bancarios"]')).toggle(300);
         })
         break;
-
+        
         default:
         console.warn('A ação não foi implementada.')
         break;
@@ -171,10 +179,10 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       }
       return string;
     }else{
-      return null;
+      return string;
     }
   }
-
+  
   function atribuirMascaras(param, input){
     if(isEmpty(param) && isEmpty(input)){
       document.querySelectorAll('[data-mascara]').forEach(input => {
@@ -258,11 +266,11 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       const moment = new Date();
       $('#data-assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
     }catch(error){};
-
+    
     $('input').each((index, input) => {
       input.setAttribute('autocomplete', 'off');
     })
-
+    
     $('input[type=checkbox]').each((index, input) => {
       $(input).on('focus', (evento) => {
         $(input.closest('.form-group')).addClass('focus')
@@ -272,7 +280,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         $(input.closest('.form-group')).removeClass('focus')
       })
     })
-
+    
     $('input[type=radio]').each((index, input) => {
       $(input).on('focus', (evento) => {
         $(input.closest('.form-group')).addClass('focus')
@@ -282,37 +290,37 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         $(input.closest('.form-group')).removeClass('focus')
       })
     })
-
+    
     try{
       const url = new URLSearchParams(new URL(window.location).search);
       const parametros_insercao = new Array();
-
+      
       document.querySelectorAll('sxs[refer]').forEach(sxs => {
         parametros_insercao.push(sxs.getAttribute('refer'));
       });
       console.log(parametros_insercao);
-
-      // parametros_insercao.forEach(parametro => {
-      //   if(url.has(parametro) && !isEmpty(url.get(parametro))){
-      //     const elemento = document.querySelector(`[data-input=${parametro}]`);
-      //     const tag = elemento.tagName.toLowerCase();
-      //     const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato'];
-
-      //     switch(tag){
-      //       case 'input':
-      //         elemento.value = url.get(parametro);
-
-      //         // if()
-
-      //       break;
-
-      //       case 'checkbox':
-      //       case 'radio':
-      //         elemento.checked = url.get(parametro);
-      //     }
-      //   }
-      // })
-
+      
+      parametros_insercao.forEach(parametro => {
+        if(url.has(parametro) && !isEmpty(url.get(parametro))){
+          const elemento = document.querySelector(`[data-input=${parametro}]`);
+          const tag = elemento.tagName.toLowerCase();
+          const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato'];
+          
+          switch(tag){
+            case 'input':
+            elemento.value = url.get(parametro);
+            
+            // if()
+            
+            break;
+            
+            case 'checkbox':
+            case 'radio':
+            elemento.checked = url.get(parametro);
+          }
+        }
+      })
+      
     }catch(error){
       console.log('Ocorreu um erro ao tentar recuperar os dados da URL. Erro: %s', error);
     }
