@@ -310,7 +310,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
             
             switch(tag){
               case 'input':
-              elemento.value = url.get(parametro);
+              elemento.value = url.get(parametro).replaceAll('-', ' ');
               
               // if()
               
