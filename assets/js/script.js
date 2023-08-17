@@ -155,6 +155,14 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         $(input).mask('0000', {reverse: true});
         break;
         
+        case 'cpf':
+          $(input).mask('000.000.000-00', {reverse: true});
+        break;
+
+        case 'numero_contrato':
+          $(input).mask('0.0000.0000000-0', {reverse: true});
+        break;
+
         case 'conta':
         $(input).mask('000000000000-0', {reverse: true});
         break;
@@ -189,7 +197,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
             case 'text':
             
             !isEmpty(element.value) ? area.text(`${element.value.toUpperCase().trim()}`) : area.text('');
-
+            
             // if(isEmpty(element.value) && inputs_tratamento.includes(element.dataset.input)){
             if(inputs_tratamento.includes(element.dataset.input)){
               switch(element.dataset.input){
@@ -296,11 +304,11 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
     try{
       const url = new URLSearchParams(new URL(window.location).search);
       const parametros_insercao = new Array();
-
+      
       document.querySelectorAll('sxs[refer]').forEach(sxs => {
         parametros_insercao.push(sxs.getAttribute('refer'));
       });
-
+      
       if(!isEmpty(parametros_insercao)){
         parametros_insercao.forEach(parametro => {
           if(url.has(parametro) && !isEmpty(url.get(parametro))){
@@ -312,8 +320,18 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
               case 'input':
               elemento.value = url.get(parametro).replaceAll('-', ' ');
               
-              // if()
-              
+              if(parametros_para_tratar.includes(parametro)){
+                switch(parametro){
+                  case 'CPF_1':
+                  case 'CPF_2':
+                  atribuirMascaras('cpf', elemento);
+                  break;
+                  
+                  case 'n_contrato':
+                  atribuirMascaras('numero-contrato', elemento);
+                  break;
+                }
+              }
               break;
               
               case 'checkbox':
