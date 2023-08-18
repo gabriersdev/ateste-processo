@@ -230,10 +230,10 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                 element.value.length <= 14 ? area.html(replicar(14, element.value.split('-')[0], '&emsp;')) : '';
                 element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
                 
-                if(element.dataset.input == 'cc-numero'){
-                  $('sxs[refer="cc-digito"]').text(element.value.split('-')[1]);
-                }else if(element.dataset.input == 'cp-numero'){
-                  $('sxs[refer="cp-digito"]').text(element.value.split('-')[1]);
+                if(element.dataset.input == 'cc_numero'){
+                  $('sxs[refer="cc_digito"]').text(element.value.split('-')[1]);
+                }else if(element.dataset.input == 'cp_numero'){
+                  $('sxs[refer="cp_digito"]').text(element.value.split('-')[1]);
                 }
                 break;
                 
@@ -343,13 +343,21 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                   
                   case 'cc_numero':
                   case 'cp_numero':
-                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 14);
+                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, url.get(parametro).replaceAll('-', ' ').length - 1);
+
                   atribuirMascaras('conta', elemento);
+
+                  if(elemento.dataset.input == 'cc_numero'){
+                    $('sxs[refer="cc_digito"]').text(url.get(parametro).replaceAll('-', ' ').substr(0, 14)[url.get(parametro).replaceAll('-', ' ').substr(0, 14).length - 1]);
+                  }else if(elemento.dataset.input == 'cp_numero'){
+                    $('sxs[refer="cp_digito"]').text(url.get(parametro).replaceAll('-', ' ').substr(0, 14)[url.get(parametro).replaceAll('-', ' ').substr(0, 14).length - 1]);
+                  }
+
                   break;
                   
                   case 'cc_agencia':
                   case 'cp_agencia':
-                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 4);
+                  elemento.value = (url.get(parametro).replaceAll('-', ' ')).substr(0, 4);
                   atribuirMascaras('agencia', elemento);
                   break;
                   
