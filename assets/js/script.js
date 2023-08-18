@@ -318,12 +318,13 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       });
       
       if(!isEmpty(parametros_insercao)){
+        console.log(parametros_insercao)
         parametros_insercao.forEach(parametro => {
           if(url.has(parametro) && !isEmpty(url.get(parametro))){
             const elemento = document.querySelector(`[data-input=${parametro}]`);
             const tag = elemento.tagName.toLowerCase();
             const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato', 'cc_agencia', 'cc_operacao', 'cc_numero', 'cp_agencia', 'cp_operacao', 'cp_numero'];
-            
+
             switch(tag){
               case 'input':
               
