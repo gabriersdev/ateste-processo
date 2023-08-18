@@ -322,11 +322,11 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         parametros_insercao.forEach(parametro => {
           if(url.has(parametro) && !isEmpty(url.get(parametro))){
             const elemento = document.querySelector(`[data-input=${parametro}]`);
-            const tag = elemento.tagName.toLowerCase();
+            const type = elemento.type;
             const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato', 'cc_agencia', 'cc_operacao', 'cc_numero', 'cp_agencia', 'cp_operacao', 'cp_numero'];
-
-            switch(tag){
-              case 'input':
+            
+            switch(type){
+              case 'text':
               
               if(parametros_para_tratar.includes(parametro)){
                 switch(parametro){
@@ -344,15 +344,15 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                   case 'cc_numero':
                   case 'cp_numero':
                   elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, url.get(parametro).replaceAll('-', ' ').length - 1);
-
+                  
                   atribuirMascaras('conta', elemento);
-
+                  
                   if(elemento.dataset.input == 'cc_numero'){
                     $('sxs[refer="cc_digito"]').text(url.get(parametro).replaceAll('-', ' ').substr(0, 14)[url.get(parametro).replaceAll('-', ' ').substr(0, 14).length - 1]);
                   }else if(elemento.dataset.input == 'cp_numero'){
                     $('sxs[refer="cp_digito"]').text(url.get(parametro).replaceAll('-', ' ').substr(0, 14)[url.get(parametro).replaceAll('-', ' ').substr(0, 14).length - 1]);
                   }
-
+                  
                   break;
                   
                   case 'cc_agencia':
@@ -374,8 +374,9 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
               
               case 'checkbox':
               case 'radio':
+              elemento.checked = (url.get(parametro) == 'true');
+              
               if(url.get(parametro) == 'true' || url.get(parametro) == true || url.get(parametro) == 'false' || url.get(parametro) == false && !isEmpty(url.get(parametro))){
-                elemento.checked = eval(url.get(url.get(parametro)));
               }
             }
           }
