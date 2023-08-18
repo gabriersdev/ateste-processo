@@ -41,12 +41,16 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         break;
         
         case 'editar':
-        $(acao).on('click', (event) => {
-          event.preventDefault();
-          // SwalAlert('alert', {icon: 'success', title:'Teste', comp:{text:'Isso é apenas um teste', timer:null}, confirmacao:null});
-          document.querySelector('#modal-editar-informacoes').showModal();
-          document.querySelector('#modal-editar-informacoes').querySelectorAll('input')[0].focus();
-        })
+        try{
+          $(acao).on('click', (event) => {
+            event.preventDefault();
+            // SwalAlert('alert', {icon: 'success', title:'Teste', comp:{text:'Isso é apenas um teste', timer:null}, confirmacao:null});
+            document.querySelector('#modal-editar-informacoes').show();
+            setTimeout(() => {
+              document.querySelector('#modal-editar-informacoes').querySelectorAll('input')[0].focus();
+            }, 0)
+          })
+        }catch(error){}
         break;
         
         case 'fechar-modal':
@@ -67,7 +71,11 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         case 'toggle-dados-bancarios':
         $(acao).on('input', (event) => {
           // event.preventDefault();
-          $((acao.closest('[data-content="dados-conta"]')).querySelector('[data-content="dados-bancarios"]')).toggle(300);
+          if(acao.checked){
+            $((acao.closest('[data-content="dados-conta"]')).querySelector('[data-content="dados-bancarios"]')).show(300);
+          }else{
+            $((acao.closest('[data-content="dados-conta"]')).querySelector('[data-content="dados-bancarios"]')).hide(300);
+          }
         })
         break;
         
@@ -156,13 +164,13 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         break;
         
         case 'cpf':
-          $(input).mask('000.000.000-00', {reverse: true});
+        $(input).mask('000.000.000-00', {reverse: true});
         break;
-
+        
         case 'numero_contrato':
-          $(input).mask('0.0000.0000000-0', {reverse: true});
+        $(input).mask('0.0000.0000000-0', {reverse: true});
         break;
-
+        
         case 'conta':
         $(input).mask('000000000000-0', {reverse: true});
         break;
@@ -314,23 +322,44 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
           if(url.has(parametro) && !isEmpty(url.get(parametro))){
             const elemento = document.querySelector(`[data-input=${parametro}]`);
             const tag = elemento.tagName.toLowerCase();
-            const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato'];
+            const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato', 'cc_agencia', 'cc_operacao', 'cc_numero', 'cp_agencia', 'cp_operacao', 'cp_numero'];
             
             switch(tag){
               case 'input':
-              elemento.value = url.get(parametro).replaceAll('-', ' ');
               
               if(parametros_para_tratar.includes(parametro)){
                 switch(parametro){
                   case 'CPF_1':
                   case 'CPF_2':
+                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 11);
                   atribuirMascaras('cpf', elemento);
                   break;
                   
                   case 'n_contrato':
+                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 16);
                   atribuirMascaras('numero-contrato', elemento);
                   break;
+                  
+                  case 'cc_numero':
+                  case 'cp_numero':
+                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 14);
+                  atribuirMascaras('conta', elemento);
+                  break;
+                  
+                  case 'cc_agencia':
+                  case 'cp_agencia':
+                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 4);
+                  atribuirMascaras('agencia', elemento);
+                  break;
+                  
+                  case 'cc_operacao':
+                  case 'cp_operacao':
+                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 4);
+                  atribuirMascaras('operacao', elemento)
+                  break;
                 }
+              }else{
+                elemento.value = url.get(parametro).replaceAll('-', ' ');
               }
               break;
               
