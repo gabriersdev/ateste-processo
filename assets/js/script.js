@@ -391,7 +391,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       }
       
       if(!isEmpty(url.has('modalidade')) && modalidades.includes(url.get('modalidade'))){
-        $(`sxs[refer=${url.get('modalidade')}]`).text('X')
+        $(`sxs[refer=${url.get('modalidade')}]`).text('X');
       }
 
     }catch(error){
