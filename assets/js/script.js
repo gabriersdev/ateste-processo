@@ -280,11 +280,6 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
     atribuirAcoes();
     atribuirMascaras();
     
-    try{
-      const moment = new Date();
-      $('#data-assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
-    }catch(error){};
-    
     $('input').each((index, input) => {
       input.setAttribute('autocomplete', 'off');
     })
@@ -388,6 +383,11 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       console.log('Ocorreu um erro ao tentar recuperar os dados da URL. Erro: %s', error);
     }
     
+    try{
+      const moment = new Date();
+      $('#data_assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
+    }catch(error){};
+
   });
   
   // document.querySelector('#modal-editar-informacoes').showModal();
