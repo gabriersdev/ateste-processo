@@ -250,13 +250,13 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
             try{
               if(data.length == 10){
                 const split = data.split('-');
-                $('sxs[refer="data-ano"]').text(split[0].trim());
-                $('sxs[refer="data-dia"]').text(split[2].trim());
+                $('sxs[refer="data_ano"]').text(split[0].trim());
+                $('sxs[refer="data_dia"]').text(split[2].trim());
                 
                 if(split[1][0] == '0'){
-                  $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1][1]) - 1)).toUpperCase());
+                  $('sxs[refer="data_mes_extenso"]').text((converterParaMesBRL(parseInt(split[1][1]) - 1)).toUpperCase());
                 }else{
-                  $('sxs[refer="data-mes-extenso"]').text((converterParaMesBRL(parseInt(split[1]) - 1)).toUpperCase());
+                  $('sxs[refer="data_mes_extenso"]').text((converterParaMesBRL(parseInt(split[1]) - 1)).toUpperCase());
                 }
               }
             }catch(error){
@@ -335,7 +335,6 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                   }else{
                     $(elemento.closest('.area-validation-CPF').querySelector('.icon-invalid-CPF')).fadeIn(500);
                   }
-
                   break;
                   
                   case 'n_contrato':
