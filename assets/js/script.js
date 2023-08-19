@@ -45,7 +45,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
           $(acao).on('click', (event) => {
             event.preventDefault();
             // SwalAlert('alert', {icon: 'success', title:'Teste', comp:{text:'Isso é apenas um teste', timer:null}, confirmacao:null});
-            document.querySelector('#modal-editar-informacoes').show();
+            document.querySelector('#modal-editar-informacoes').showModal();
             setTimeout(() => {
               document.querySelector('#modal-editar-informacoes').querySelectorAll('input')[0].focus();
             }, 0)
@@ -329,6 +329,13 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                   case 'CPF_2':
                   elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 11);
                   atribuirMascaras('cpf', elemento);
+
+                  if(verificarCPF(elemento.value)){
+                    $(elemento.closest('.area-validation-CPF').querySelector('.icon-invalid-CPF')).fadeOut(500);
+                  }else{
+                    $(elemento.closest('.area-validation-CPF').querySelector('.icon-invalid-CPF')).fadeIn(500);
+                  }
+
                   break;
                   
                   case 'n_contrato':
@@ -387,7 +394,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       const moment = new Date();
       $('#data_assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
     }catch(error){};
-
+    
   });
   
   // document.querySelector('#modal-editar-informacoes').showModal();
@@ -420,4 +427,21 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
     event.preventDefault();
     window.print();
   })
+  
+  document.addEventListener('keyup', (evento) => {
+    if(!isEmpty(evento.keyCode)){
+      if(evento.keyCode == 45){
+        //Ativar modal editar informações
+        exibirModalEditarInformacoes();
+      }
+    }
+  })
+  
+  function exibirModalEditarInformacoes(){
+    document.querySelector('#modal-editar-informacoes').showModal();
+    setTimeout(() => {
+      document.querySelector('#modal-editar-informacoes').querySelectorAll('input')[0].focus();
+    }, 0)
+  }
+  
 })();
