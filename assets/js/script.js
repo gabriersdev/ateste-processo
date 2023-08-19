@@ -316,8 +316,8 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         parametros_insercao.push(sxs.getAttribute('refer'));
       });
       
-      if(!isEmpty(parametros_insercao)){
-        console.log(parametros_insercao)
+      if(!isEmpty(parametros_insercao) && url.size > 0){
+        // console.log(parametros_insercao)
         parametros_insercao.forEach(parametro => {
           if(url.has(parametro) && !isEmpty(url.get(parametro))){
             const elemento = document.querySelector(`[data-input=${parametro}]`);
