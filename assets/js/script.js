@@ -228,21 +228,22 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                 
                 case 'cc_numero':
                 case 'cp_numero':
-                // console.log(element.value.length)
-                // console.log(element.value.split('-'))
-                element.value.length <= 14 ? area.html(replicar(14, element.value.split('-')[0], '&emsp;')) : '';
-                element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
                 
+                const valor = element.value.replaceAll('-', '');
+
+                element.value.length <= 14 ? area.html(replicar(14, valor.substr(0, valor.length - 1), '&emsp;')) : '';
+                element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
+
                 if(element.dataset.input == 'cc_numero'){
-                  $('sxs[refer="cc_digito"]').text(element.value.split('-')[1]);
+                  $('sxs[refer="cc_digito"]').text(valor[valor.length - 1]);
                 }else if(element.dataset.input == 'cp_numero'){
-                  $('sxs[refer="cp_digito"]').text(element.value.split('-')[1]);
+                  $('sxs[refer="cp_digito"]').text(valor[valor.length - 1]);
                 }
                 break;
                 
                 case 'cc_digito':
                 case 'cp_digito':
-                element.value.length < 1 ? area.html(``) : '';
+                // element.value.length < 1 ? area.html(``) : '';
                 break;
               }
             }
