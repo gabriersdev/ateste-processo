@@ -311,7 +311,8 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
     try{
       const url = new URLSearchParams(new URL(window.location).search);
       const parametros_insercao = new Array();
-      
+      const modalidades = ['CCNPMCMV', 'CCFGTS', 'CCSBPE', 'PROCOTISTA']
+
       document.querySelectorAll('sxs[refer]').forEach(sxs => {
         parametros_insercao.push(sxs.getAttribute('refer'));
       });
@@ -389,6 +390,10 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
         enviarFormulario();
       }
       
+      if(!isEmpty(url.has('modalidade')) && modalidades.includes(url.get('modalidade'))){
+        $(`sxs[refer=${url.get('modalidade')}]`).text('X')
+      }
+
     }catch(error){
       console.log('Ocorreu um erro ao tentar recuperar os dados da URL. Erro: %s', error);
     }
