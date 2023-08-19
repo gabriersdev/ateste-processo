@@ -73,6 +73,9 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
           // event.preventDefault();
           if(acao.checked){
             $((acao.closest('[data-content="dados-conta"]')).querySelector('[data-content="dados-bancarios"]')).show(300);
+            setTimeout(() => {
+              (acao.closest('[data-content="dados-conta"]')).querySelector('[data-content="dados-bancarios"]').querySelectorAll('input')[0].focus();
+            }, 500)
           }else{
             $((acao.closest('[data-content="dados-conta"]')).querySelector('[data-content="dados-bancarios"]')).hide(300);
           }
