@@ -1,6 +1,6 @@
 "use strict";
 
-import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } from './modulos/utilitarios.js'
+import { SwalAlert, converterParaMesBRL, isEmpty, numero_e_digito, verificarCPF, zeroEsquerda } from './modulos/utilitarios.js'
 
 (() => {
   
@@ -230,14 +230,14 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                 case 'cp_numero':
                 
                 const valor = element.value.replaceAll('-', '');
-
-                element.value.length <= 14 ? area.html(replicar(14, valor.substr(0, valor.length - 1), '&emsp;')) : '';
+                // console.log(numero_e_digito(valor))
+                element.value.length <= 14 ? area.html(replicar(14, numero_e_digito(valor).numero, '&emsp;')) : '';
                 element.value.length == 0 ? area.html(`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`) : '';
-
+                
                 if(element.dataset.input == 'cc_numero'){
-                  $('sxs[refer="cc_digito"]').text(valor[valor.length - 1]);
+                  $('sxs[refer="cc_digito"]').text(numero_e_digito(valor).agencia);
                 }else if(element.dataset.input == 'cp_numero'){
-                  $('sxs[refer="cp_digito"]').text(valor[valor.length - 1]);
+                  $('sxs[refer="cp_digito"]').text(numero_e_digito(valor).agencia);
                 }
                 break;
                 
@@ -263,9 +263,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                   $('sxs[refer="data_mes_extenso"]').text((converterParaMesBRL(parseInt(split[1]) - 1)).toUpperCase());
                 }
               }
-            }catch(error){
-              
-            }
+            }catch(error){}
             break;
             
             case 'checkbox':
@@ -309,10 +307,15 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
     })
     
     try{
+      const moment = new Date();
+      $('#data_assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
+    }catch(error){};
+
+    try{
       const url = new URLSearchParams(new URL(window.location).search);
       const parametros_insercao = new Array();
       const modalidades = ['CCNPMCMV', 'CCFGTS', 'CCSBPE', 'PROCOTISTA']
-
+      
       document.querySelectorAll('sxs[refer]').forEach(sxs => {
         parametros_insercao.push(sxs.getAttribute('refer'));
       });
@@ -334,7 +337,6 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                   case 'CPF_2':
                   elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 11);
                   atribuirMascaras('cpf', elemento);
-
                   if(verificarCPF(elemento.value)){
                     $(elemento.closest('.area-validation-CPF').querySelector('.icon-invalid-CPF')).fadeOut(500);
                   }else{
@@ -343,33 +345,32 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
                   break;
                   
                   case 'n_contrato':
-                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 16);
+                  elemento.value = url.get(parametro).replaceAll('-', '').replaceAll('.', '').substr(0, 16);
                   atribuirMascaras('numero-contrato', elemento);
                   break;
                   
                   case 'cc_numero':
                   case 'cp_numero':
-                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, url.get(parametro).replaceAll('-', ' ').length - 1);
-                  
+                  const valor = url.get(parametro).replaceAll('-', '').replaceAll('.', '');
+                  elemento.value = (valor);
+                  // console.log(numero_e_digito(url.get(parametro)))
                   atribuirMascaras('conta', elemento);
-                  
                   if(elemento.dataset.input == 'cc_numero'){
-                    $('sxs[refer="cc_digito"]').text(url.get(parametro).replaceAll('-', ' ').substr(0, 14)[url.get(parametro).replaceAll('-', ' ').substr(0, 14).length - 1]);
+                    $('sxs[refer="cc_digito"]').text(numero_e_digito(valor).digito);
                   }else if(elemento.dataset.input == 'cp_numero'){
-                    $('sxs[refer="cp_digito"]').text(url.get(parametro).replaceAll('-', ' ').substr(0, 14)[url.get(parametro).replaceAll('-', ' ').substr(0, 14).length - 1]);
+                    $('sxs[refer="cp_digito"]').text(numero_e_digito(valor).digito);
                   }
-                  
                   break;
                   
                   case 'cc_agencia':
                   case 'cp_agencia':
-                  elemento.value = (url.get(parametro).replaceAll('-', ' ')).substr(0, 4);
+                  elemento.value = (url.get(parametro).replaceAll('-', '')).substr(0, 4);
                   atribuirMascaras('agencia', elemento);
                   break;
                   
                   case 'cc_operacao':
                   case 'cp_operacao':
-                  elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 4);
+                  elemento.value = url.get(parametro).replaceAll('-', '').substr(0, 4);
                   atribuirMascaras('operacao', elemento)
                   break;
                 }
@@ -393,15 +394,10 @@ import { SwalAlert, converterParaMesBRL, isEmpty, verificarCPF, zeroEsquerda } f
       if(!isEmpty(url.has('modalidade')) && modalidades.includes(url.get('modalidade'))){
         $(`sxs[refer=${url.get('modalidade')}]`).text('X');
       }
-
+      
     }catch(error){
       console.log('Ocorreu um erro ao tentar recuperar os dados da URL. Erro: %s', error);
     }
-    
-    try{
-      const moment = new Date();
-      $('#data_assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
-    }catch(error){};
     
   });
   

@@ -234,6 +234,21 @@ const converterParaMesBRL = (numero) => {
   }
 }
 
+function numero_e_digito(numero_conta){
+  let numero = '';
+  let digito = '';
+
+  if(numero_conta.length > 1){
+    numero = numero_conta.substring(0, numero_conta.length - 1);
+    digito = numero_conta[numero_conta.length - 1];
+
+  }else if(numero_conta.length > 0){
+    numero = numero_conta;
+  }
+
+  return {numero, digito};
+}
+
 export{
   isEmpty,
   capitalize,
@@ -249,5 +264,6 @@ export{
   zeroEsquerda,
   desanitizarStringURL,
   sanitizarStringParaURL,
-  converterParaMesBRL
+  converterParaMesBRL,
+  numero_e_digito
 }
