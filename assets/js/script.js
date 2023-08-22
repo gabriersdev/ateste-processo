@@ -310,7 +310,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, numero_e_digito, verificarCPF,
       const moment = new Date();
       $('#data_assinatura').val(`${moment.getFullYear()}-${zeroEsquerda(2, moment.getMonth() + 1)}-${zeroEsquerda(2, moment.getDate())}`);
     }catch(error){};
-
+    
     try{
       const url = new URLSearchParams(new URL(window.location).search);
       const parametros_insercao = new Array();
