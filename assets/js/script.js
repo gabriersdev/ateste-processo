@@ -357,8 +357,12 @@ import { SwalAlert, converterParaMesBRL, isEmpty, numero_e_digito, verificarCPF,
                   atribuirMascaras('conta', elemento);
                   if(elemento.dataset.input == 'cc_numero'){
                     $('sxs[refer="cc_digito"]').text(numero_e_digito(valor).digito);
+                    $('[data-e="dados-bancarios-conta-corrente"]').show(300);
+                    document.querySelector('[data-input="conta_corrente"]').checked = true;
                   }else if(elemento.dataset.input == 'cp_numero'){
                     $('sxs[refer="cp_digito"]').text(numero_e_digito(valor).digito);
+                    $('[data-e="dados-bancarios-conta-poupanca"]').show(300);
+                    document.querySelector('[data-input="conta_poupanca"]').checked = true;
                   }
                   break;
                   
