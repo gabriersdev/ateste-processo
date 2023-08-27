@@ -116,7 +116,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, numero_e_digito, verificarCPF,
           break;
           
           case 'numero-contrato':
-          $(input).mask('0.0000.0000000-0')
+          $(input).mask('0.0000.0000000-0');
           break;
           
           case 'data':
@@ -170,7 +170,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, numero_e_digito, verificarCPF,
         $(input).mask('000.000.000-00', {reverse: true});
         break;
         
-        case 'numero_contrato':
+        case 'numero-contrato':
         $(input).mask('0.0000.0000000-0', {reverse: true});
         break;
         
