@@ -397,6 +397,7 @@ import { SwalAlert, converterParaMesBRL, isEmpty, numero_e_digito, verificarCPF,
       
       if(!isEmpty(url.has('modalidade')) && modalidades.includes(url.get('modalidade'))){
         $(`sxs[refer=${url.get('modalidade')}]`).text('X');
+        document.querySelector(`#${url.get('modalidade')}`).checked = true;
       }
       
     }catch(error){
