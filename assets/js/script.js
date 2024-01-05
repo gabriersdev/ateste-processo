@@ -4,6 +4,35 @@ import { SwalAlert, converterParaMesBRL, isEmpty, numero_e_digito, verificarCPF,
 
 (() => {
   
+    // Apresentação do Projeto no console
+    const dados_do_projeto = {
+      'Project name': 'Ateste de Processo',
+      'Developed by': 'Gabriel Ribeiro',
+      Version: '1.0.0',
+      'Release date': '2024-01-05',
+      Hostname: new URL(window.location).hostname,
+      Origin: new URL(window.location).origin,
+      Status: 'Active',
+    };
+  
+    const novas_funcionalidades = [
+      "Recebimento de dados via parâmetro: dados enviados por URL (GET) são recuperados e lançados para criação do ateste do processo.",
+      "Formatação da capa para impressão: na impressão da capa, os campos são devidamente tratados e exibido apenas o conteúdo necessário."
+    ];
+  
+    Object.freeze(novas_funcionalidades);
+    Object.freeze(dados_do_projeto);
+  
+    // Exibindo dados
+    console.groupCollapsed(`${dados_do_projeto['Project name']}, Version ${dados_do_projeto.Version}`);
+    console.table(dados_do_projeto);
+    console.groupEnd();
+  
+    console.groupCollapsed('New features');
+    novas_funcionalidades.toSorted((a, b) => a.localeCompare(b)).forEach((feature) => { console.info(`${feature}`); });
+    console.groupEnd();
+    // Fim da apresentação do projeto
+
   try{
     pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
   }catch(error){}
