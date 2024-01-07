@@ -1,214 +1,183 @@
 const isEmpty = (valor) => {
-  if(typeof valor == 'string'){
-    return valor == undefined || valor == null || valor.length <= 0;
-  }else if(Array.isArray(valor)){
+  if (typeof valor === 'string') {
+    return valor === undefined || valor === null || valor.length <= 0;
+  } if (Array.isArray(valor)) {
     return valor.length <= 0;
-  }else if(typeof valor == 'object'){
+  } if (typeof valor === 'object') {
     return Object.keys(valor).length <= 0;
-  }else{
-    return valor == undefined || valor == null
   }
-}
+  return valor === undefined || valor === null;
+};
 
-const capitalize = (valor) => {
-  return valor.charAt(0).toUpperCase() + valor.substr(1, valor.length);
-}
+const capitalize = (valor) => valor.charAt(0).toUpperCase() + valor.substr(1, valor.length);
 
 const atualizarDatas = () => {
   const dataAtual = new Date();
-  document.querySelectorAll("[data-ano-atual]").forEach(area => {
+  document.querySelectorAll('[data-ano-atual]').forEach((area) => {
     area.textContent = `${dataAtual.getFullYear()}`;
-  })
-} 
+  });
+};
 
 const controleFechamentoModal = () => {
   const modais = document.querySelectorAll('.modal');
-  modais.forEach(modal => {
+  modais.forEach((modal) => {
     const btnFecha = modal.querySelector('[data-modal-fecha]');
     btnFecha.addEventListener('click', () => {
-      $('#' + modal.id).modal('hide');
-    })
-  })
-}
+      $(`#${modal.id}`).modal('hide');
+    });
+  });
+};
 
-function sanitizarString(string){
-  if(typeof string == 'string'){
+function sanitizarString(string) {
+  if (typeof string === 'string') {
     const substituir = [
       {
         original: '-',
-        subst: ''
+        subst: '',
       },
       {
         original: '(',
-        subst: ''
+        subst: '',
       },
       {
         original: ')',
-        subst: ''
+        subst: '',
       },
       {
         original: ' ',
-        subst: ''
+        subst: '',
       },
-    ]
+    ];
 
-    substituir.forEach(substituicao => {
-      string = string.replace(substituicao.original, substituicao.subst)
-    })
+    let string_subst = '';
+    substituir.forEach((substituicao) => {
+      string_subst = string.replace(substituicao.original, substituicao.subst);
+    });
 
-    return string.trim();
-  }else{
-    console.log('O tipo do parâmetro passado não é uma string.');
-    return null;
+    return string_subst.trim();
   }
+  console.log('O tipo do parâmetro passado não é uma string.');
+  return null;
 }
 
-function tooltips(){
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-}
-
-function popovers(){
-  $(document).ready(function(){
-    $('[data-bs-toggle="popover"]').popover();  
+function tooltips() {
+  $(() => {
+    $('[data-toggle="tooltip"]').tooltip();
   });
 }
 
-async function SwalAlert(tipo, {icon, title, comp, confirmacao}){
-  tipo = tipo.toLowerCase().trim();
+function popovers() {
+  $(document).ready(() => {
+    $('[data-bs-toggle="popover"]').popover();
+  });
+}
+
+async function SwalAlert(tipo, {
+  icon, title, comp, confirmacao,
+}) {
+  tipo_lower = tipo.toLowerCase().trim();
 
   // comp: text, mensagem, timer
   // confirmacao: label, showCancelButton, focusCancel
 
-  switch(tipo){
+  switch (tipo_lower) {
     case 'confirmacao':
       const dialog = await Swal.fire({
-        icon: icon,
-        title: title,
-        text: text,
+        icon,
+        title,
+        text,
         showCancelButton: confirmacao.showCancelButton,
         confirmButtonText: confirmacao.label,
         focusCancel: confirmacao.focusCancel,
-        timer: comp.timer
-      })
-  
-      return new Promise((resolve, reject) => {
-        resolve({confirmed: dialog.isConfirmed});
+        timer: comp.timer,
       });
-    break;
-  
-    case 'aviso':  
+
+      return new Promise((resolve) => {
+        resolve({ confirmed: dialog.isConfirmed });
+      });
+
+    case 'aviso':
     case 'error':
     default:
       Swal.fire({
-        icon: icon,
-        title: title,
+        icon,
+        title,
         text: comp.text,
         footer: comp.mensagem,
-        timer: comp.timer
-      }) 
-    break;
+        timer: comp.timer,
+      });
+      break;
   }
-}
-
-function resizeTextArea(textarea){
-  // Créditos https://www.instagram.com/reel/CrdgXF3AECg/
-  const initialHeight = parseInt(getComputedStyle(textarea).getPropertyValue('height'));
-  textarea.addEventListener('input', () => {
-    textarea.style.height = `${initialHeight}px`;
-    const scrollHeight = textarea.scrollHeight;
-    const newHeight = textarea.scrollHeight - initialHeight;
-    textarea.style.height = `${newHeight < scrollHeight ? scrollHeight : newHeight}px`;
-  });
 }
 
 const copiar = async (valor) => {
   await navigator.clipboard.writeText(valor);
-}
+};
 
-function verificarCPF(cpf){
-  cpf = cpf.replace(/\D/g, '');
-
-  switch (cpf){
+function verificarCPF(cpf) {
+  let resultado = false;
+  const CPF_replaced = cpf.replace(/\D/g, '');
+  
+  switch (cpf) {
     case '00000000000':
-    resultado = false
-    break;
     case '11111111111':
-    resultado = false
-    break;
     case '22222222222':
-    resultado = false
-    break;
     case '33333333333':
-    resultado = false
-    break;
     case '44444444444':
-    resultado = false
-    break;
     case '55555555555':
-    resultado = false
-    break;
     case '66666666666':
-    resultado = false
-    break;
     case '77777777777':
-    resultado = false
-    break;
     case '88888888888':
-    resultado = false
-    break;
     case '99999999999':
-    resultado = false
-    break;
+      return false;
     default: 
-    if(cpf.toString().length != 11 || /^(\d)\1{10}$/.test(cpf)) return false;
-    var resultado = true;
-    [9,10].forEach(function(j){
-      var soma = 0, r;
-      cpf.split(/(?=)/).splice(0,j).forEach(function(e, i){
-        soma += parseInt(e) * ((j+2)-(i+1));
+    if (CPF_replaced.toString().length !== 11 || /^(\d)\1{10}$/.test(CPF_replaced)) return false;
+    resultado = true;
+    [9, 10].forEach((j) => {
+      let soma = 0; 
+      let r;
+      CPF_replaced.split(/(?=)/).splice(0, j).forEach((e, i) => {
+        soma += parseInt(e, 10) * ((j + 2) - (i + 1));
       });
       r = soma % 11;
-      r = (r <2)?0:11-r;
-      if(r != cpf.substring(j, j+1)) resultado = false;
+      r = (r < 2) ? 0 : 11 - r;
+      if (r !== parseInt(CPF_replaced.substring(j, j + 1), 10)) resultado = false;
     });
   }
   
   return resultado;
 }
 
-function zeroEsquerda(quantidadeZeros, valor){
+function zeroEsquerda(quantidadeZeros, valor) {
   let zeros;
-  
-  for(let i = 0; i < quantidadeZeros; i++){
-    zeros == null ? zeros = "0" : zeros = zeros + "0";
+
+  for (let i = 0; i < quantidadeZeros; i += 1) {
+    zeros += '0';
   }
+
   return (zeros + valor).slice(-quantidadeZeros);
 }
 
-function desanitizarStringURL(string){
-  if(!isEmpty(string)){
+function desanitizarStringURL(string) {
+  if (!isEmpty(string)) {
     return string.replaceAll('-', ' ').replaceAll('%20', ' ');
-  }else{
-    return '';
   }
+  return '';
 }
 
-function sanitizarStringParaURL(string){
-  if(!isEmpty(string)){
+function sanitizarStringParaURL(string) {
+  if (!isEmpty(string)) {
     return string.trim().toLowerCase().replaceAll(' ', '-');
-  }else{
-    return '';
   }
+  return '';
 }
 
 const converterParaMesBRL = (numero) => {
-  try{
-    numero = parseInt(numero);
-    if(typeof numero == 'number'){
+  try {
+    const numero_parsed = parseInt(numero, 10);
+    if (typeof numero_parsed === 'number') {
       let mes = null;
-      switch (numero + 1){
+      switch (numero_parsed + 1) {
         case 1: mes = 'janeiro'; break;
         case 2: mes = 'fevereiro'; break;
         case 3: mes = 'março'; break;
@@ -223,33 +192,31 @@ const converterParaMesBRL = (numero) => {
         case 12: mes = 'dezembro'; break;
         default: mes = 'janeiro'; break;
       }
-    
+
       return mes;
-    }else{
-      return null;
     }
-  }catch(error){
+    return null;
+  } catch (error) {
     console.warn('O valor informado não é um número');
     return null;
   }
-}
+};
 
-function numero_e_digito(numero_conta){
+function numero_e_digito(numero_conta) {
   let numero = '';
   let digito = '';
 
-  if(numero_conta.length > 1){
+  if (numero_conta.length > 1) {
     numero = numero_conta.substring(0, numero_conta.length - 1);
     digito = numero_conta[numero_conta.length - 1];
-
-  }else if(numero_conta.length > 0){
+  } else if (numero_conta.length > 0) {
     numero = numero_conta;
   }
 
-  return {numero, digito};
+  return { numero, digito };
 }
 
-export{
+export {
   isEmpty,
   capitalize,
   atualizarDatas,
@@ -258,12 +225,11 @@ export{
   tooltips,
   popovers,
   SwalAlert,
-  resizeTextArea,
   copiar,
   verificarCPF,
   zeroEsquerda,
   desanitizarStringURL,
   sanitizarStringParaURL,
   converterParaMesBRL,
-  numero_e_digito
-}
+  numero_e_digito,
+};

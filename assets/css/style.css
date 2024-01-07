@@ -105,15 +105,28 @@ textarea::placeholder{
   margin-left: 1.05rem;
 }
 
-:where(input[type=radio], input[type=checkbox]){
-  outline: 1px solid rebeccapurple;
-}
-
 :where(input[type=text], input[type=date]):is(:focus){
   transition: ease-in-out border 300ms;
-  /* border-color: rgba(0, 0, 0, 0.4) !important; */
   box-shadow:  0px 0px 0px 3px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.1);
   outline: none;
+}
+
+.alert{
+  display: inline-block;
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  font-size: 15.5px;
+
+  &.alert-warning{
+    background-color: #FFE10050;
+  }
+
+  &.alert-danger{
+    background-color: #FF000050;
+  }
 }
