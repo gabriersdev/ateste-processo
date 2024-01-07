@@ -98,7 +98,7 @@ import {
       $('[data-input="cc_numero"]').val('');
       $('sxs[refer="cc_digito"]').text('');
 
-      if (contas.corrente.some((e) => e)) $('[data-e="dados-bancarios-conta-corrente"]').prepend('<div role="alert"><div class="alert alert-danger"><p>Um ou mais campos não foram preenchidos!</p></div></div>');
+      if (contas.corrente.some((e) => e) && !document.querySelector('[data-e="dados-bancarios-conta-corrente"] [role="alert"]')) $('[data-e="dados-bancarios-conta-corrente"]').prepend('<div role="alert"><div class="alert alert-danger"><p>Um ou mais campos não foram preenchidos!</p></div></div>');
     } else {
       $('[data-e="dados-bancarios-conta-corrente"] [role="alert"]').remove();
     }
@@ -109,7 +109,7 @@ import {
       $('[data-input="cp_numero"]').val('');
       $('sxs[refer="cp_digito"]').text('');
 
-      if (contas.poupanca.some((e) => e)) $('[data-e="dados-bancarios-conta-poupanca"]').prepend('<div role="alert"><div class="alert alert-danger"><p>Um ou mais campos não foram preenchidos!</p></div></div>');
+      if (contas.poupanca.some((e) => e) && !document.querySelector('[data-e="dados-bancarios-conta-poupanca"] [role="alert"]')) $('[data-e="dados-bancarios-conta-poupanca"]').prepend('<div role="alert"><div class="alert alert-danger"><p>Um ou mais campos não foram preenchidos!</p></div></div>');
     } else {
       $('[data-e="dados-bancarios-conta-poupanca"] [role="alert"]').remove();
     }
@@ -149,17 +149,12 @@ import {
                 const valor = element.value.replaceAll('-', '');
                 if (element.value.length <= 14) area.html(replicar(14, numero_e_digito(valor).numero, '&emsp;'));
                 if (element.value.length === 0) area.html('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;');
-                
+
                 if (element.dataset.input === 'cc_numero') {
-                  $('sxs[refer="cc_digito"]').text(numero_e_digito(valor).agencia);
+                  $('sxs[refer="cc_digito"]').text(numero_e_digito(valor).digito);
                 } else if (element.dataset.input === 'cp_numero') {
-                  $('sxs[refer="cp_digito"]').text(numero_e_digito(valor).agencia);
+                  $('sxs[refer="cp_digito"]').text(numero_e_digito(valor).digito);
                 }
-                break;
-                
-                case 'cc_digito':
-                case 'cp_digito':
-                // element.value.length < 1 ? area.html(``) : '';
                 break;
               }
             }

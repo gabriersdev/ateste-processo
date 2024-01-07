@@ -20,12 +20,9 @@ A base do projeto, em XML foi gerada pelo site [convert.io][link-convert-io], qu
 ## Tecnologias
 
 - jQuery
-- SweetAlert
 - [PDF2HTMLEx][link-PDF2]
 - [convert.io][link-convert-io]
-- JS
-- CSS
-- HTML
+- JS, CSS e HTML
 
 [link-projeto]: https://gabrieszin.github.io/ateste-processo/
 [link-convert-io]: https://convertio.co/pt/doc-html/
