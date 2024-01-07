@@ -123,3 +123,9 @@ textarea::placeholder{
     background-color: #FF000050;
   }
 }
+
+@media print {
+  div#controle{
+    display: none !important;
+  }
+}
