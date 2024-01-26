@@ -38,6 +38,12 @@ import {
     });
   });
 
+  try {
+    pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
+  } catch (error) {
+    console.log('Um erro ocorreu. Erro: %s', error);
+  }
+
   const replicar = (quantidade, string, adicionar) => {
     let string_saida = String(string);
     if (typeof string === 'string' && quantidade > string.length) {
