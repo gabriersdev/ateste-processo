@@ -380,10 +380,18 @@ import {
       });
 
       if (!isEmpty(parametros_insercao) && url.size > 0) {
+        console.log(parametros_insercao);
+
+        // Inclusão de parâmetros como forma de substituição de chaves para tratamento
+        if (url.has('conta_comprador_numero')) url.set('cc_numero', url.get('conta_comprador_numero'));
+        if (url.has('conta_comprador_agencia')) url.set('cc_agencia', url.get('conta_comprador_agencia'));
+        if (url.has('conta_comprador_operacao')) url.set('cc_operacao', url.get('conta_comprador_operacao'));
+
         parametros_insercao.forEach((parametro) => {
           if (url.has(parametro) && !isEmpty(url.get(parametro))) {
             const elemento = document.querySelector(`[data-input=${parametro}]`);
             const { type } = elemento;
+
             const parametros_para_tratar = ['CPF_1', 'CPF_2', 'n_contrato', 'cc_agencia', 'cc_operacao', 'cc_numero', 'cp_agencia', 'cp_operacao', 'cp_numero'];
 
             switch (type) {
@@ -392,7 +400,7 @@ import {
                   switch (parametro) {
                     case 'CPF_1':
                     case 'CPF_2':
-                      elemento.value = url.get(parametro).replaceAll('-', ' ').substr(0, 11);
+                      elemento.value = url.get(parametro).replace(/\D/g, '').substring(0, 11) || '';
                       atribuirMascaras('cpf', elemento);
                       if (verificarCPF(elemento.value)) {
                         $(elemento.closest('.area-validation-CPF').querySelector('.icon-invalid-CPF')).fadeOut(500);
@@ -402,13 +410,13 @@ import {
                       break;
 
                     case 'n_contrato':
-                      elemento.value = url.get(parametro).replaceAll('-', '').replaceAll('.', '').substr(0, 16);
+                      elemento.value = url.get(parametro).replace(/\D/g, '').substring(0, 16) || '';
                       atribuirMascaras('numero-contrato', elemento);
                       break;
 
                     case 'cc_numero':
                     case 'cp_numero':
-                      const valor = url.get(parametro).replaceAll('-', '').replaceAll('.', '');
+                      const valor = url.get(parametro).replace(/\D/g, '') || '';
                       elemento.value = (valor);
                       atribuirMascaras('conta', elemento);
                       if (elemento.dataset.input === 'cc_numero') {
@@ -424,13 +432,13 @@ import {
 
                     case 'cc_agencia':
                     case 'cp_agencia':
-                      elemento.value = (url.get(parametro).replaceAll('-', '')).substr(0, 4);
+                      elemento.value = (url.get(parametro).replace(/\D/, '') || '').substring(0, 4);
                       atribuirMascaras('agencia', elemento);
                       break;
 
                     case 'cc_operacao':
                     case 'cp_operacao':
-                      elemento.value = url.get(parametro).replaceAll('-', '').substr(0, 4);
+                      elemento.value = (url.get(parametro).replace(/\D/, '') || '').substring(0, 4);
                       atribuirMascaras('operacao', elemento);
                       break;
                   }
@@ -447,6 +455,8 @@ import {
           }
         });
         enviarFormulario();
+        // Clicando no botão de impressão
+        setTimeout(() => { document.querySelector('.btn-impressao').click(); }, 500);
       }
 
       if (!isEmpty(url.has('modalidade')) && modalidades.includes(url.get('modalidade'))) {
