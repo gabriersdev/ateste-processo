@@ -7,8 +7,8 @@ import {
   const dados_do_projeto = {
     'Project name': 'Ateste de Processo',
     'Developed by': 'Gabriel Ribeiro',
-    Version: '1.0.0',
-    'Release date': '2024-01-05',
+    Version: '1.0.1',
+    'Release date': '2024-05-04',
     Hostname: new URL(window.location).hostname,
     Origin: new URL(window.location).origin,
     Status: 'Active',
@@ -380,8 +380,6 @@ import {
       });
 
       if (!isEmpty(parametros_insercao) && url.size > 0) {
-        console.log(parametros_insercao);
-
         // Inclusão de parâmetros como forma de substituição de chaves para tratamento
         if (url.has('conta_comprador_numero')) url.set('cc_numero', url.get('conta_comprador_numero'));
         if (url.has('conta_comprador_agencia')) url.set('cc_agencia', url.get('conta_comprador_agencia'));
