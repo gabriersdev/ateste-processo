@@ -17,6 +17,8 @@ import {
   const novas_funcionalidades = [
     'Recebimento de dados via parâmetro: dados enviados por URL (GET) são recuperados e lançados para criação do ateste do processo.',
     'Formatação da capa para impressão: na impressão da capa, os campos são devidamente tratados e exibido apenas o conteúdo necessário.',
+    'Adicionado tratamento com regex para os dados recebidos via URL: os dados recebidos via URL são tratados com regex para garantir que apenas os caracteres necessários sejam exibidos.',
+    'Impressão do ateste quando os dados são recebidos via URL: ao receber os dados via URL, o ateste é impresso automaticamente.',
   ];
 
   Object.freeze(novas_funcionalidades);
