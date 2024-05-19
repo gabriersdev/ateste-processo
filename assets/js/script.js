@@ -63,11 +63,11 @@ import {
     linkElementos.forEach((link) => {
       switch (link.dataset.link.toLowerCase().trim()) {
         case 'github-dev':
-          link.href = 'https://github.com/gabrieszin';
+          link.href = 'https://github.com/gabriersdev';
           break;
 
         case 'github-projeto':
-          link.href = 'https://github.com/gabrieszin/[nome-repositorio]';
+          link.href = 'https://github.com/gabriersdev/ateste-processo';
           break;
       }
 
